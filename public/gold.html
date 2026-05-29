@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 WX Gold API - أسعار الذهب</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a1a;color:#fff;padding:15px;text-align:center}
+h1{color:#ffd700;margin:15px 0}
+h2{color:#ffd700;margin:20px 0 10px}
+.card{background:#1a1a3e;border-radius:15px;padding:15px;margin:10px 0;border:1px solid #333;text-align:right}
+.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #2a2a4e}
+.label{color:#aaa}
+.value{font-weight:bold;color:#ffd700}
+select{background:#0d0d2b;color:#fff;border:1px solid #ffd700;padding:12px;border-radius:10px;font-size:1.1em;width:100%;margin:10px 0}
+.big{font-size:2em;color:#ffd700;text-align:center;margin:10px 0}
+.btn{display:block;background:#1a1a3e;color:#ffd700;padding:12px;margin:8px 0;border:1px solid #333;border-radius:10px;text-decoration:none;font-size:1em}
+.btn:hover{background:#2a2a4e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tag{background:#ffd700;color:#000;padding:5px 10px;border-radius:20px;font-size:0.8em;display:inline-block;margin:2px}
+pre{background:#000;padding:10px;border-radius:10px;text-align:left;overflow-x:auto;font-size:11px;max-height:200px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<h1>🏆 WX Gold API v4.0</h1>
+<p style="color:#aaa;margin-bottom:15px">أسعار الذهب والمعادن الحية | 43 دولة | أحجار كريمة | سوق موازي</p>
+
+<div class="card">
+<h2>🥇 أسعار الذهب حسب الدولة</h2>
+<select id="country" onchange="loadGold()">
+<option value="EG">🇪🇬 مصر</option>
+<option value="SA">🇸🇦 السعودية</option>
+<option value="AE">🇦🇪 الإمارات</option>
+<option value="KW">🇰🇼 الكويت</option>
+<option value="QA">🇶🇦 قطر</option>
+<option value="BH">🇧🇭 البحرين</option>
+<option value="OM">🇴🇲 عمان</option>
+<option value="JO">🇯🇴 الأردن</option>
+<option value="IQ">🇮🇶 العراق</option>
+<option value="LB">🇱🇧 لبنان</option>
+<option value="SY">🇸🇾 سوريا</option>
+<option value="TR">🇹🇷 تركيا</option>
+<option value="DZ">🇩🇿 الجزائر</option>
+<option value="MA">🇲🇦 المغرب</option>
+<option value="TN">🇹🇳 تونس</option>
+<option value="GB">🇬🇧 بريطانيا</option>
+<option value="DE">🇩🇪 ألمانيا</option>
+<option value="FR">🇫🇷 فرنسا</option>
+<option value="US">🇺🇸 أمريكا</option>
+<option value="CA">🇨🇦 كندا</option>
+<option value="IN">🇮🇳 الهند</option>
+<option value="CN">🇨🇳 الصين</option>
+<option value="JP">🇯🇵 اليابان</option>
+</select>
+<div id="goldResult"><p style="color:#aaa">اختر دولة لعرض الأسعار</p></div>
+</div>
+
+<h2>💎 أحجار كريمة</h2>
+<a href="/api/v1/gemstones" class="btn">💎 عرض كل الأحجار الكريمة (JSON)</a>
+<a href="/api/v1/gemstones/all/1" class="btn">💍 أسعار 1 قيراط - كل الأحجار</a>
+
+<h2>🏴‍☠️ سوق موازي</h2>
+<a href="/api/v1/parallel/EG" class="btn">🇪🇬 مصر - السوق الموازي</a>
+<a href="/api/v1/parallel/SY" class="btn">🇸🇾 سوريا - السوق الموازي</a>
+<a href="/api/v1/parallel/LB" class="btn">🇱🇧 لبنان - السوق الموازي</a>
+
+<h2>🏪 مصنعية وضرائب</h2>
+<a href="/api/v1/fees/EG" class="btn">🇪🇬 مصر</a>
+<a href="/api/v1/fees/SA" class="btn">🇸🇦 السعودية</a>
+
+<h2>📊 مقارنة معادن</h2>
+<a href="/api/v1/metals/compare/EG" class="btn">🥇 ذهب - فضة - بلاتين - بلاديوم (مصر)</a>
+
+<h2>🧮 حاسبة السعر النهائي</h2>
+<a href="/api/v1/calculate/EG?karat=21k&weight=50" class="btn">🇪🇬 50 جرام عيار 21 (سعر نهائي)</a>
+
+<h2>🔗 روابط API</h2>
+<div class="card">
+<pre>GET /api/v1/gold/:country
+GET /api/v1/gemstones
+GET /api/v1/gemstones/:gemstone?grade=X&size=Y
+GET /api/v1/gemstones/all/:size
+GET /api/v1/fees/:country
+GET /api/v1/calculate/:country?karat=&weight=
+GET /api/v1/parallel/:country
+GET /api/v1/metals/compare/:country
+GET /api/v1/compare-prices/:country?karat=&weight=
+POST /api/v1/keys/generate
+GET /api/v1/keys/info
+GET /api/v1/widget/:country</pre>
+</div>
+
+<div style="margin:20px 0;padding:15px;background:#1a1a3e;border-radius:10px">
+<p>🚀 <b>WX Gold API v4.0</b> | 43 دولة | 4 معادن | 4 أحجار كريمة | سوق موازي</p>
+<p style="color:#ffd700;margin-top:5px">https://wx-gold-api.vercel.app</p>
+</div>
+
+<script>
+function loadGold(){
+var c=document.getElementById('country').value;
+document.getElementById('goldResult').innerHTML='<p style="color:#ffd700">⏳ جاري التحميل...</p>';
+fetch('/api/v1/gold/'+c).then(function(r){return r.json()}).then(function(d){
+if(d.success){
+var h='<div class="big">'+d.prices.ounce_usd+' $</div><p style="color:#aaa">سعر الأوقية</p>';
+h+='<div class="row"><span class="label">عيار 24</span><span class="value">'+d.prices.gold_24+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">عيار 22</span><span class="value">'+d.prices.gold_22+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">عيار 21</span><span class="value">'+d.prices.gold_21+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">عيار 18</span><span class="value">'+d.prices.gold_18+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">عيار 14</span><span class="value">'+d.prices.gold_14+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">جنيه ذهب (8g)</span><span class="value">'+d.prices.gold_pound_8g+' '+d.currency+'</span></div>';
+h+='<div class="row"><span class="label">كيلو ذهب</span><span class="value">'+d.prices.gold_kilo+' '+d.currency+'</span></div>';
+h+='<p style="color:#aaa;font-size:11px;margin-top:10px">'+d.country_name+' | '+d.timestamp+'</p>';
+document.getElementById('goldResult').innerHTML=h;
+}
+}).catch(function(e){
+document.getElementById('goldResult').innerHTML='<p style="color:red">❌ خطأ: '+e.message+'</p>';
+});
+}
+loadGold();
+</script>
+</body>
+</html>

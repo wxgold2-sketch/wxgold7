@@ -1,0 +1,49 @@
+{
+  "diamond": {
+    "name": "ألماس",
+    "unit": "قيراط",
+    "grades": {
+      "vvs1_d": { "name": "VVS1 درجة D", "price_per_carat": 55000 },
+      "vvs1_e": { "name": "VVS1 درجة E", "price_per_carat": 42000 },
+      "vvs1_f": { "name": "VVS1 درجة F", "price_per_carat": 35000 },
+      "vs1_g": { "name": "VS1 درجة G", "price_per_carat": 28000 },
+      "vs1_h": { "name": "VS1 درجة H", "price_per_carat": 22000 },
+      "si1_i": { "name": "SI1 درجة I", "price_per_carat": 15000 },
+      "si1_j": { "name": "SI1 درجة J", "price_per_carat": 10000 }
+    },
+    "sizes": [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5]
+  },
+  "ruby": {
+    "name": "ياقوت",
+    "unit": "قيراط",
+    "grades": {
+      "premium": { "name": "ممتاز (دم الحمام)", "price_per_carat": 15000 },
+      "excellent": { "name": "ممتاز", "price_per_carat": 10000 },
+      "very_good": { "name": "جيد جداً", "price_per_carat": 6000 },
+      "good": { "name": "جيد", "price_per_carat": 3000 }
+    },
+    "sizes": [0.5, 1, 2, 3, 5]
+  },
+  "emerald": {
+    "name": "زمرد",
+    "unit": "قيراط",
+    "grades": {
+      "premium": { "name": "ممتاز (كولومبي)", "price_per_carat": 12000 },
+      "excellent": { "name": "ممتاز", "price_per_carat": 8000 },
+      "very_good": { "name": "جيد جداً", "price_per_carat": 4500 },
+      "good": { "name": "جيد", "price_per_carat": 2500 }
+    },
+    "sizes": [0.5, 1, 2, 3, 5]
+  },
+  "sapphire": {
+    "name": "سفير",
+    "unit": "قيراط",
+    "grades": {
+      "premium": { "name": "ممتاز (كشميري)", "price_per_carat": 10000 },
+      "excellent": { "name": "ممتاز", "price_per_carat": 6000 },
+      "very_good": { "name": "جيد جداً", "price_per_carat": 3500 },
+      "good": { "name": "جيد", "price_per_carat": 1800 }
+    },
+    "sizes": [0.5, 1, 2, 3, 5]
+  }
+}

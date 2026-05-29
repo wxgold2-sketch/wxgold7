@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏆 WX Gold API - Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
+    .header { background: linear-gradient(135deg, #1a1a3e, #0d0d2b); padding: 20px; text-align: center; border-bottom: 2px solid #ffd700; }
+    .header h1 { font-size: 2em; color: #ffd700; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+    .stat-card { background: #1a1a3e; border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #333; }
+    .stat-card .value { font-size: 2em; font-weight: bold; color: #ffd700; }
+    .stat-card .label { color: #aaa; margin-top: 5px; }
+    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .card { background: #1a1a3e; border-radius: 15px; padding: 20px; border: 1px solid #333; }
+    .card h2 { color: #ffd700; margin-bottom: 15px; font-size: 1.3em; }
+    .price-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a2a4e; }
+    .price-row .label { color: #aaa; }
+    .price-row .value { font-weight: bold; }
+    .gold-price { font-size: 2.5em; text-align: center; color: #ffd700; margin: 20px 0; }
+    .karat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .karat-box { background: #0d0d2b; border-radius: 10px; padding: 15px; text-align: center; }
+    .karat-box .k { color: #ffd700; font-size: 0.9em; }
+    .karat-box .p { font-size: 1.3em; font-weight: bold; margin-top: 5px; }
+    select { background: #0d0d2b; color: #fff; border: 1px solid #ffd700; padding: 10px 20px; border-radius: 10px; font-size: 1.1em; width: 100%; margin-bottom: 20px; cursor: pointer; }
+    .footer { text-align: center; padding: 20px; color: #666; border-top: 1px solid #1a1a3e; margin-top: 40px; }
+    @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🏆 WX Gold API</h1>
+    <p>لوحة التحكم - أسعار الذهب والمعادن الحية</p>
+  </div>
+  
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="value" id="ouncePrice">--</div>
+        <div class="label">سعر الأوقية (دولار)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="gold24">--</div>
+        <div class="label">عيار 24 (محلي)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="gold21">--</div>
+        <div class="label">عيار 21 (محلي)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="lastUpdate">--</div>
+        <div class="label">آخر تحديث</div>
+      </div>
+    </div>
+    
+    <select id="countrySelect" onchange="loadData()">
+      <option value="EG">🇪🇬 مصر</option>
+      <option value="SA">🇸🇦 السعودية</option>
+      <option value="AE">🇦🇪 الإمارات</option>
+      <option value="KW">🇰🇼 الكويت</option>
+      <option value="QA">🇶🇦 قطر</option>
+      <option value="BH">🇧🇭 البحرين</option>
+      <option value="OM">🇴🇲 عمان</option>
+      <option value="JO">🇯🇴 الأردن</option>
+      <option value="IQ">🇮🇶 العراق</option>
+      <option value="LB">🇱🇧 لبنان</option>
+      <option value="TR">🇹🇷 تركيا</option>
+      <option value="GB">🇬🇧 بريطانيا</option>
+      <option value="US">🇺🇸 أمريكا</option>
+    </select>
+
+    <div class="main-grid">
+      <div class="card">
+        <h2>🥇 أسعار الذهب</h2>
+        <div class="gold-price" id="mainGoldPrice">--</div>
+        <div class="karat-grid">
+          <div class="karat-box"><div class="k">عيار 24</div><div class="p" id="k24">--</div></div>
+          <div class="karat-box"><div class="k">عيار 22</div><div class="p" id="k22">--</div></div>
+          <div class="karat-box"><div class="k">عيار 21</div><div class="p" id="k21">--</div></div>
+          <div class="karat-box"><div class="k">عيار 18</div><div class="p" id="k18">--</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2>📊 مقارنة المعادن</h2>
+        <div id="metalsCompare">جاري التحميل...</div>
+      </div>
+      
+      <div class="card">
+        <h2>🏪 المصنعية والضرائب</h2>
+        <div id="feesInfo">جاري التحميل...</div>
+      </div>
+      
+      <div class="card">
+        <h2>🏴‍☠️ السوق الموازي</h2>
+        <div id="parallelInfo">جاري التحميل...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>⚡ WX Gold API v4.0 | تحديث مباشر | مبني بواسطة Termux 📱</p>
+  </div>
+
+  <script>
+    async function loadData() {
+      const country = document.getElementById('countrySelect').value;
+      
+      try {
+        // جلب سعر الذهب
+        const goldRes = await fetch(`/api/v1/gold/${country}`);
+        const goldData = await goldRes.json();
+        
+        if (goldData.success) {
+          document.getElementById('ouncePrice').textContent = '$' + goldData.prices.ounce_usd;
+          document.getElementById('gold24').textContent = goldData.prices.gold_24;
+          document.getElementById('gold21').textContent = goldData.prices.gold_21;
+          document.getElementById('mainGoldPrice').textContent = '$' + goldData.prices.ounce_usd;
+          document.getElementById('k24').textContent = goldData.prices.gold_24;
+          document.getElementById('k22').textContent = goldData.prices.gold_22;
+          document.getElementById('k21').textContent = goldData.prices.gold_21;
+          document.getElementById('k18').textContent = goldData.prices.gold_18;
+          document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ar-EG');
+        }
+        
+        // جلب مقارنة المعادن
+        const metalsRes = await fetch(`/api/v1/metals/compare/${country}`);
+        const metalsData = await metalsRes.json();
+        if (metalsData.success) {
+          let metalsHtml = '';
+          for (let [key, metal] of Object.entries(metalsData.metals)) {
+            metalsHtml += `<div class="price-row"><span class="label">${metal.name} (${metal.symbol})</span><span class="value">$${metal.ounce_usd}</span></div>`;
+          }
+          document.getElementById('metalsCompare').innerHTML = metalsHtml;
+        }
+        
+        // جلب المصنعية
+        const feesRes = await fetch(`/api/v1/fees/${country}`);
+        const feesData = await feesRes.json();
+        if (feesData.success) {
+          let feesHtml = `<p><b>الضريبة:</b> ${(feesData.tax_rate * 100).toFixed(0)}%</p>`;
+          feesHtml += '<p><b>المصنعية لكل جرام:</b></p>';
+          for (let [k, v] of Object.entries(feesData.making_fee_per_gram)) {
+            feesHtml += `<div class="price-row"><span class="label">${k}</span><span class="value">${v}</span></div>`;
+          }
+          document.getElementById('feesInfo').innerHTML = feesHtml;
+        }
+        
+        // جلب السوق الموازي
+        const parallelRes = await fetch(`/api/v1/parallel/${country}`);
+        const parallelData = await parallelRes.json();
+        if (parallelData.success) {
+          if (parallelData.active) {
+            document.getElementById('parallelInfo').innerHTML = `
+              <p style="color:#ff6b6b;">⚠️ يوجد سوق موازي</p>
+              <p>${parallelData.description}</p>
+              <p><b>الفارق:</b> ${parallelData.premium_percent}%</p>`;
+          } else {
+            document.getElementById('parallelInfo').innerHTML = '<p style="color:#4ecb71;">✅ سعر موحد - لا يوجد سوق موازي</p>';
+          }
+        }
+      } catch (e) {
+        console.log('خطأ في التحميل:', e);
+      }
+    }
+    
+    loadData();
+    setInterval(loadData, 10000);
+  </script>
+</body>
+</html>

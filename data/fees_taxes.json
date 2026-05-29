@@ -1,0 +1,316 @@
+{
+  "EG": {
+    "country": "مصر",
+    "making_fee_per_gram": { "24k": 200, "22k": 170, "21k": 150, "18k": 120, "14k": 100, "10k": 80 },
+    "tax_rate": 0.14,
+    "additional_fees": { "stamp": 25, "certificate": 50 },
+    "parallel_market": { "active": true, "premium_percent": 15, "description": "فارق 15% بين الرسمي والموازي" }
+  },
+  "SA": {
+    "country": "السعودية",
+    "making_fee_per_gram": { "24k": 40, "22k": 35, "21k": 30, "18k": 25, "14k": 20, "10k": 15 },
+    "tax_rate": 0.15,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "AE": {
+    "country": "الإمارات",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 22, "14k": 18, "10k": 15 },
+    "tax_rate": 0.05,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "KW": {
+    "country": "الكويت",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 22, "14k": 18, "10k": 15 },
+    "tax_rate": 0,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "QA": {
+    "country": "قطر",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 22, "14k": 18, "10k": 15 },
+    "tax_rate": 0,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "BH": {
+    "country": "البحرين",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 22, "14k": 18, "10k": 15 },
+    "tax_rate": 0.05,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "OM": {
+    "country": "عمان",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 22, "14k": 18, "10k": 15 },
+    "tax_rate": 0,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "JO": {
+    "country": "الأردن",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.16,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 5, "description": "فارق 5%" }
+  },
+  "IQ": {
+    "country": "العراق",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 12, "description": "فارق 12%" }
+  },
+  "YE": {
+    "country": "اليمن",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.05,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 20, "description": "فارق 20%" }
+  },
+  "SY": {
+    "country": "سوريا",
+    "making_fee_per_gram": { "24k": 60, "22k": 50, "21k": 45, "18k": 35, "14k": 28, "10k": 22 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 40, "description": "فارق كبير 40%" }
+  },
+  "LB": {
+    "country": "لبنان",
+    "making_fee_per_gram": { "24k": 55, "22k": 45, "21k": 40, "18k": 32, "14k": 25, "10k": 20 },
+    "tax_rate": 0.11,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 25, "description": "فارق 25%" }
+  },
+  "PS": {
+    "country": "فلسطين",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.16,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "TR": {
+    "country": "تركيا",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.18,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "IR": {
+    "country": "إيران",
+    "making_fee_per_gram": { "24k": 55, "22k": 45, "21k": 40, "18k": 32, "14k": 25, "10k": 20 },
+    "tax_rate": 0.09,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 35, "description": "فارق 35%" }
+  },
+  "DZ": {
+    "country": "الجزائر",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.19,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 10, "description": "فارق 10%" }
+  },
+  "MA": {
+    "country": "المغرب",
+    "making_fee_per_gram": { "24k": 48, "22k": 40, "21k": 36, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.20,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "TN": {
+    "country": "تونس",
+    "making_fee_per_gram": { "24k": 48, "22k": 40, "21k": 36, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.19,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 10, "description": "فارق 10%" }
+  },
+  "LY": {
+    "country": "ليبيا",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 15, "description": "فارق 15%" }
+  },
+  "SD": {
+    "country": "السودان",
+    "making_fee_per_gram": { "24k": 55, "22k": 45, "21k": 40, "18k": 32, "14k": 25, "10k": 20 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 30, "description": "فارق 30%" }
+  },
+  "ZA": {
+    "country": "جنوب أفريقيا",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.15,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "NG": {
+    "country": "نيجيريا",
+    "making_fee_per_gram": { "24k": 40, "22k": 35, "21k": 30, "18k": 25, "14k": 20, "10k": 15 },
+    "tax_rate": 0.075,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 20, "description": "فارق 20%" }
+  },
+  "KE": {
+    "country": "كينيا",
+    "making_fee_per_gram": { "24k": 40, "22k": 35, "21k": 30, "18k": 25, "14k": 20, "10k": 15 },
+    "tax_rate": 0.16,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "GH": {
+    "country": "غانا",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.125,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "ET": {
+    "country": "إثيوبيا",
+    "making_fee_per_gram": { "24k": 42, "22k": 36, "21k": 30, "18k": 25, "14k": 20, "10k": 16 },
+    "tax_rate": 0.15,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 12, "description": "فارق 12%" }
+  },
+  "GB": {
+    "country": "بريطانيا",
+    "making_fee_per_gram": { "24k": 55, "22k": 45, "21k": 40, "18k": 32, "14k": 25, "10k": 20 },
+    "tax_rate": 0.20,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "DE": {
+    "country": "ألمانيا",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.19,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "FR": {
+    "country": "فرنسا",
+    "making_fee_per_gram": { "24k": 52, "22k": 44, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.20,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "IT": {
+    "country": "إيطاليا",
+    "making_fee_per_gram": { "24k": 55, "22k": 45, "21k": 40, "18k": 32, "14k": 25, "10k": 20 },
+    "tax_rate": 0.22,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "ES": {
+    "country": "إسبانيا",
+    "making_fee_per_gram": { "24k": 48, "22k": 40, "21k": 36, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.21,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "CH": {
+    "country": "سويسرا",
+    "making_fee_per_gram": { "24k": 60, "22k": 50, "21k": 45, "18k": 35, "14k": 28, "10k": 22 },
+    "tax_rate": 0.077,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "RU": {
+    "country": "روسيا",
+    "making_fee_per_gram": { "24k": 42, "22k": 36, "21k": 30, "18k": 25, "14k": 20, "10k": 16 },
+    "tax_rate": 0.20,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 10, "description": "فارق 10%" }
+  },
+  "UA": {
+    "country": "أوكرانيا",
+    "making_fee_per_gram": { "24k": 40, "22k": 35, "21k": 30, "18k": 25, "14k": 20, "10k": 15 },
+    "tax_rate": 0.20,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "US": {
+    "country": "أمريكا",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.08,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "CA": {
+    "country": "كندا",
+    "making_fee_per_gram": { "24k": 48, "22k": 40, "21k": 36, "18k": 28, "14k": 22, "10k": 18 },
+    "tax_rate": 0.13,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "MX": {
+    "country": "المكسيك",
+    "making_fee_per_gram": { "24k": 40, "22k": 35, "21k": 30, "18k": 25, "14k": 20, "10k": 15 },
+    "tax_rate": 0.16,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 5, "description": "فارق 5%" }
+  },
+  "BR": {
+    "country": "البرازيل",
+    "making_fee_per_gram": { "24k": 42, "22k": 36, "21k": 32, "18k": 26, "14k": 22, "10k": 16 },
+    "tax_rate": 0.17,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 10, "description": "فارق 10%" }
+  },
+  "AR": {
+    "country": "الأرجنتين",
+    "making_fee_per_gram": { "24k": 60, "22k": 50, "21k": 45, "18k": 35, "14k": 28, "10k": 22 },
+    "tax_rate": 0.21,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 50, "description": "فارق كبير 50% (Blue Dollar)" }
+  },
+  "CN": {
+    "country": "الصين",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 20, "14k": 16, "10k": 12 },
+    "tax_rate": 0.13,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "JP": {
+    "country": "اليابان",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "KR": {
+    "country": "كوريا الجنوبية",
+    "making_fee_per_gram": { "24k": 45, "22k": 38, "21k": 32, "18k": 25, "14k": 20, "10k": 16 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "IN": {
+    "country": "الهند",
+    "making_fee_per_gram": { "24k": 30, "22k": 25, "21k": 22, "18k": 18, "14k": 14, "10k": 10 },
+    "tax_rate": 0.03,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 5, "description": "فارق 5%" }
+  },
+  "PK": {
+    "country": "باكستان",
+    "making_fee_per_gram": { "24k": 35, "22k": 30, "21k": 25, "18k": 20, "14k": 16, "10k": 12 },
+    "tax_rate": 0.17,
+    "additional_fees": {},
+    "parallel_market": { "active": true, "premium_percent": 8, "description": "فارق 8%" }
+  },
+  "AU": {
+    "country": "أستراليا",
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  },
+  "DEFAULT": {
+    "making_fee_per_gram": { "24k": 50, "22k": 42, "21k": 38, "18k": 30, "14k": 25, "10k": 20 },
+    "tax_rate": 0.10,
+    "additional_fees": {},
+    "parallel_market": { "active": false, "premium_percent": 0, "description": "سعر موحد" }
+  }
+}

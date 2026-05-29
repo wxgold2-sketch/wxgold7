@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WX Gold API - مباشر</title>
+  <style>
+    body { font-family: Arial; background: #0a0a1a; color: #fff; padding: 15px; text-align: center; }
+    h1 { color: #ffd700; }
+    .box { background: #1a1a3e; border-radius: 15px; padding: 15px; margin: 10px 0; border: 1px solid #333; }
+    .big { font-size: 2.5em; color: #ffd700; font-weight: bold; }
+    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #2a2a4e; }
+    .label { color: #aaa; }
+    .value { font-weight: bold; }
+    select { background: #0d0d2b; color: #fff; border: 1px solid #ffd700; padding: 12px; border-radius: 10px; font-size: 16px; width: 100%; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>🏆 WX Gold API</h1>
+  <p>أسعار الذهب والمعادن الحية</p>
+  
+  <select id="country" onchange="getPrice()">
+    <option value="EG">🇪🇬 مصر</option>
+    <option value="SA">🇸🇦 السعودية</option>
+    <option value="AE">🇦🇪 الإمارات</option>
+    <option value="KW">🇰🇼 الكويت</option>
+    <option value="QA">🇶🇦 قطر</option>
+    <option value="JO">🇯🇴 الأردن</option>
+    <option value="IQ">🇮🇶 العراق</option>
+    <option value="LB">🇱🇧 لبنان</option>
+    <option value="TR">🇹🇷 تركيا</option>
+    <option value="GB">🇬🇧 بريطانيا</option>
+    <option value="US">🇺🇸 أمريكا</option>
+  </select>
+  
+  <div id="result">
+    <p style="color:#ffd700;">⏳ جاري تحميل البيانات...</p>
+  </div>
+  
+  <script>
+    function getPrice() {
+      var country = document.getElementById('country').value;
+      document.getElementById('result').innerHTML = '<p style="color:#ffd700;">⏳ جاري التحميل...</p>';
+      
+      fetch('/api/v1/gold/' + country)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.success) {
+            document.getElementById('result').innerHTML = 
+              '<div class="box">' +
+              '<h2>' + data.country_name + '</h2>' +
+              '<div class="big">' + data.prices.ounce_usd + ' $</div>' +
+              '<p>سعر الأوقية</p>' +
+              '<div class="row"><span class="label">عيار 24</span><span class="value">' + data.prices.gold_24 + '</span></div>' +
+              '<div class="row"><span class="label">عيار 21</span><span class="value">' + data.prices.gold_21 + '</span></div>' +
+              '<div class="row"><span class="label">عيار 18</span><span class="value">' + data.prices.gold_18 + '</span></div>' +
+              '<div class="row"><span class="label">العملة</span><span class="value">' + data.currency + '</span></div>' +
+              '<p style="color:#aaa;font-size:12px;margin-top:10px;">' + data.timestamp + '</p>' +
+              '</div>';
+          } else {
+            document.getElementById('result').innerHTML = '<p style="color:red;">❌ فشل جلب البيانات</p>';
+          }
+        })
+        .catch(function(error) {
+          document.getElementById('result').innerHTML = '<p style="color:red;">❌ خطأ: ' + error.message + '</p>';
+        });
+    }
+    
+    // تحميل البيانات عند فتح الصفحة
+    getPrice();
+  </script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 WX Gold API - أسعار الذهب العالمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-card: #1a1a2e;
+            --gold: #ffd700;
+            --green: #00ff88;
+            --red: #ff4444;
+            --blue: #4488ff;
+            --orange: #ff8c00;
+            --text: #ffffff;
+            --text-secondary: #8888aa;
+            --border: #2a2a4a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* هيدر */
+        .header {
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border: 1px solid #ffd70033;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .header-logo { font-size: 28px; }
+        .header-title { font-size: 18px; font-weight: 900; color: var(--gold); }
+        .header-subtitle { font-size: 10px; color: var(--text-secondary); }
+        .header-status { font-size: 11px; }
+        .status-online { color: var(--green); }
+        .status-offline { color: var(--red); }
+
+        .refresh-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* شريط الإحصائيات */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            padding: 12px 5px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon { font-size: 18px; }
+        .stat-value { font-size: 14px; font-weight: 900; color: var(--gold); }
+        .stat-label { font-size: 9px; color: var(--text-secondary); }
+
+        /* السعر العالمي */
+        .global-card {
+            background: linear-gradient(135deg, #1a1a2e, #ffd70011);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 2px solid #ffd70033;
+        }
+
+        .global-icon { font-size: 35px; }
+        .global-label { font-size: 13px; color: var(--text-secondary); }
+        .global-price { font-size: 48px; font-weight: 900; color: var(--gold); }
+        .global-info { font-size: 11px; color: var(--text-secondary); margin-top: 5px; }
+
+        /* المعادن */
+        .metals-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .metal-card {
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .metal-icon { font-size: 22px; }
+        .metal-name { font-size: 10px; color: var(--text-secondary); }
+        .metal-price { font-size: 15px; font-weight: 900; }
+
+        .silver-price { color: #c0c0c0; }
+        .platinum-price { color: #4488ff; }
+        .palladium-price { color: #ff8c00; }
+
+        /* شريط البحث */
+        .search-bar {
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 95px;
+            z-index: 99;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 2px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-row::-webkit-scrollbar { height: 0; }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+
+        /* شبكة الدول */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .country-card {
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .country-card:active { transform: scale(0.97); }
+
+        .country-card.pegged { border-left: 3px solid var(--blue); }
+        .country-card.floating { border-left: 3px solid var(--green); }
+        .country-card.managed { border-left: 3px solid var(--orange); }
+        .country-card.parallel { border-left: 3px solid var(--red); }
+
+        .country-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .country-name { font-size: 13px; font-weight: 700; }
+        .country-flag { font-size: 18px; }
+        .country-rate { font-size: 9px; color: var(--text-secondary); }
+
+        .country-prices {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .price-item {
+            background: var(--bg-primary);
+            padding: 6px 2px;
+            border-radius: 8px;
+        }
+
+        .price-karat { font-size: 9px; color: var(--text-secondary); }
+        .price-value { font-size: 12px; font-weight: 900; color: var(--gold); }
+
+        .market-badge {
+            font-size: 8px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        .badge-pegged { background: #4488ff22; color: var(--blue); }
+        .badge-floating { background: #00ff8822; color: var(--green); }
+        .badge-managed { background: #ff8c0022; color: var(--orange); }
+        .badge-parallel { background: #ff444422; color: var(--red); }
+
+        .fav-btn {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .fav-btn.active { color: var(--gold); }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* فوتر */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        .footer a { color: var(--gold); }
+
+        /* API Key Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ffd70033;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 4px; color: var(--text-secondary); }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text);
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 22px;
+            cursor: pointer;
+            float: left;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 20px;
+            z-index: 400;
+            font-size: 12px;
+            border: 1px solid var(--gold);
+            display: none;
+        }
+
+        .toast.show { display: block; }
+
+        @media (min-width: 600px) {
+            .countries-grid { grid-template-columns: repeat(3, 1fr); }
+            .global-price { font-size: 56px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- هيدر -->
+        <div class="header">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span class="header-logo">🏆</span>
+                <div>
+                    <div class="header-title">WX Gold API</div>
+                    <div class="header-subtitle">أسعار الذهب لحظياً - 43 دولة</div>
+                </div>
+            </div>
+            <div style="text-align:left;">
+                <div class="header-status" id="statusDot">🟢 متصل</div>
+                <button class="refresh-btn" onclick="refreshAll()">🔄</button>
+            </div>
+        </div>
+
+        <!-- شريط إحصائيات -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="statGold">-</div>
+                <div class="stat-label">أوقية XAU</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value" id="statSources">-</div>
+                <div class="stat-label">مصادر</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="statAccuracy">-</div>
+                <div class="stat-label">الدقة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🌍</div>
+                <div class="stat-value">43</div>
+                <div class="stat-label">دولة</div>
+            </div>
+        </div>
+
+        <!-- السعر العالمي -->
+        <div class="global-card">
+            <div class="global-icon">🪙</div>
+            <div class="global-label">سعر الذهب العالمي (XAU/USD)</div>
+            <div class="global-price" id="globalPrice">-</div>
+            <div class="global-info" id="globalInfo">جاري التحميل...</div>
+        </div>
+
+        <!-- المعادن الأخرى -->
+        <div class="metals-row">
+            <div class="metal-card">
+                <div class="metal-icon">🥈</div>
+                <div class="metal-name">الفضة XAG</div>
+                <div class="metal-price silver-price" id="silverPrice">-</div>
+            </div>
+            <div class="metal-card">
+                <div class="metal-icon">🔵</div>
+                <div class="metal-name">البلاتين XPT</div>
+                <div class="metal-price platinum-price" id="platinumPrice">-</div>
+            </div>
+            <div class="metal-card">
+                <div class="metal-icon">🟠</div>
+                <div class="metal-name">البلاديوم XPD</div>
+                <div class="metal-price palladium-price" id="palladiumPrice">-</div>
+            </div>
+        </div>
+
+        <!-- شريط البحث -->
+        <div class="search-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث عن دولة..." oninput="renderCountries()">
+            <div class="filter-row" id="filterRow">
+                <button class="filter-btn active" onclick="setFilter('all', this)">🌍 الكل</button>
+                <button class="filter-btn" onclick="setFilter('الخليج', this)">🏝️ الخليج</button>
+                <button class="filter-btn" onclick="setFilter('شمال أفريقيا', this)">🏜️ شمال أفريقيا</button>
+                <button class="filter-btn" onclick="setFilter('المشرق', this)">🏛️ المشرق</button>
+                <button class="filter-btn" onclick="setFilter('آسيا', this)">🌏 آسيا</button>
+                <button class="filter-btn" onclick="setFilter('أوروبا', this)">🏰 أوروبا</button>
+                <button class="filter-btn" onclick="setFilter('parallel', this)">⚠️ موازي</button>
+                <button class="filter-btn" onclick="setFilter('favorites', this)">⭐ المفضلة</button>
+            </div>
+        </div>
+
+        <!-- شبكة الدول -->
+        <div class="countries-grid" id="countriesGrid"></div>
+        <div class="no-results" id="noResults" style="display:none;">🔍 لا توجد دول تطابق البحث</div>
+
+        <!-- فوتر -->
+        <div class="footer">
+            <p>🏆 WX Gold API v7.0 | 35+ مصدر | 43 دولة | دقة 99.99% | مجاني للأبد</p>
+            <p>جميع الحقوق محفوظة © 2026 | <a href="#" onclick="openApiModal()">🔑 احصل على API Key</a></p>
+        </div>
+    </div>
+
+    <!-- مودال API Key -->
+    <div class="modal" id="apiModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeApiModal()">✕</button>
+            <div class="modal-title">🔑 إنشاء API Key مجاني</div>
+            <div class="form-group">
+                <label>📧 البريد الإلكتروني</label>
+                <input type="email" id="apiEmail" placeholder="example@gmail.com">
+            </div>
+            <div class="form-group">
+                <label>👤 الاسم (اختياري)</label>
+                <input type="text" id="apiName" placeholder="اسمك">
+            </div>
+            <button class="submit-btn" onclick="generateApiKey()">🎉 إنشاء مفتاح مجاني</button>
+            <div id="apiResult" style="margin-top:10px; text-align:center;"></div>
+        </div>
+    </div>
+
+    <!-- إشعار -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // ⚠️ أهم سطر - عنوان السيرفر في Termux
+        // ============================================
+        const API_URL = 'http://localhost:3001';
+        
+        // لو مش شغال، جرب ده:
+        // const API_URL = 'http://127.0.0.1:3001';
+        
+        const API_KEY = localStorage.getItem('wx_api_key') || '';
+
+        // ============================================
+        // بيانات الدول
+        // ============================================
+        const countryDefs = {
+            EG: { name: 'مصر', flag: '🇪🇬', region: 'شمال أفريقيا', currency: 'EGP', marketType: 'parallel' },
+            SA: { name: 'السعودية', flag: '🇸🇦', region: 'الخليج', currency: 'SAR', marketType: 'pegged' },
+            AE: { name: 'الإمارات', flag: '🇦🇪', region: 'الخليج', currency: 'AED', marketType: 'pegged' },
+            KW: { name: 'الكويت', flag: '🇰🇼', region: 'الخليج', currency: 'KWD', marketType: 'pegged' },
+            QA: { name: 'قطر', flag: '🇶🇦', region: 'الخليج', currency: 'QAR', marketType: 'pegged' },
+            BH: { name: 'البحرين', flag: '🇧🇭', region: 'الخليج', currency: 'BHD', marketType: 'pegged' },
+            OM: { name: 'عمان', flag: '🇴🇲', region: 'الخليج', currency: 'OMR', marketType: 'pegged' },
+            JO: { name: 'الأردن', flag: '🇯🇴', region: 'المشرق', currency: 'JOD', marketType: 'pegged' },
+            IQ: { name: 'العراق', flag: '🇮🇶', region: 'المشرق', currency: 'IQD', marketType: 'parallel' },
+            SY: { name: 'سوريا', flag: '🇸🇾', region: 'المشرق', currency: 'SYP', marketType: 'parallel' },
+            LB: { name: 'لبنان', flag: '🇱🇧', region: 'المشرق', currency: 'LBP', marketType: 'parallel' },
+            PS: { name: 'فلسطين', flag: '🇵🇸', region: 'المشرق', currency: 'ILS', marketType: 'floating' },
+            YE: { name: 'اليمن', flag: '🇾🇪', region: 'الجزيرة', currency: 'YER', marketType: 'parallel' },
+            MA: { name: 'المغرب', flag: '🇲🇦', region: 'شمال أفريقيا', currency: 'MAD', marketType: 'managed' },
+            DZ: { name: 'الجزائر', flag: '🇩🇿', region: 'شمال أفريقيا', currency: 'DZD', marketType: 'parallel' },
+            TN: { name: 'تونس', flag: '🇹🇳', region: 'شمال أفريقيا', currency: 'TND', marketType: 'managed' },
+            LY: { name: 'ليبيا', flag: '🇱🇾', region: 'شمال أفريقيا', currency: 'LYD', marketType: 'parallel' },
+            SD: { name: 'السودان', flag: '🇸🇩', region: 'شمال أفريقيا', currency: 'SDG', marketType: 'parallel' },
+            TR: { name: 'تركيا', flag: '🇹🇷', region: 'آسيا', currency: 'TRY', marketType: 'floating' },
+            IR: { name: 'إيران', flag: '🇮🇷', region: 'آسيا', currency: 'IRR', marketType: 'parallel' },
+            IN: { name: 'الهند', flag: '🇮🇳', region: 'آسيا', currency: 'INR', marketType: 'managed' },
+            PK: { name: 'باكستان', flag: '🇵🇰', region: 'آسيا', currency: 'PKR', marketType: 'parallel' },
+            BD: { name: 'بنغلاديش', flag: '🇧🇩', region: 'آسيا', currency: 'BDT', marketType: 'managed' },
+            CN: { name: 'الصين', flag: '🇨🇳', region: 'آسيا', currency: 'CNY', marketType: 'managed' },
+            JP: { name: 'اليابان', flag: '🇯🇵', region: 'آسيا', currency: 'JPY', marketType: 'floating' },
+            KR: { name: 'كوريا', flag: '🇰🇷', region: 'آسيا', currency: 'KRW', marketType: 'floating' },
+            SG: { name: 'سنغافورة', flag: '🇸🇬', region: 'آسيا', currency: 'SGD', marketType: 'managed' },
+            TH: { name: 'تايلاند', flag: '🇹🇭', region: 'آسيا', currency: 'THB', marketType: 'managed' },
+            MY: { name: 'ماليزيا', flag: '🇲🇾', region: 'آسيا', currency: 'MYR', marketType: 'managed' },
+            ID: { name: 'إندونيسيا', flag: '🇮🇩', region: 'آسيا', currency: 'IDR', marketType: 'managed' },
+            PH: { name: 'الفلبين', flag: '🇵🇭', region: 'آسيا', currency: 'PHP', marketType: 'floating' },
+            NG: { name: 'نيجيريا', flag: '🇳🇬', region: 'أفريقيا', currency: 'NGN', marketType: 'parallel' },
+            ZA: { name: 'جنوب أفريقيا', flag: '🇿🇦', region: 'أفريقيا', currency: 'ZAR', marketType: 'floating' },
+            GB: { name: 'بريطانيا', flag: '🇬🇧', region: 'أوروبا', currency: 'GBP', marketType: 'floating' },
+            DE: { name: 'ألمانيا', flag: '🇩🇪', region: 'أوروبا', currency: 'EUR', marketType: 'floating' },
+            FR: { name: 'فرنسا', flag: '🇫🇷', region: 'أوروبا', currency: 'EUR', marketType: 'floating' },
+            IT: { name: 'إيطاليا', flag: '🇮🇹', region: 'أوروبا', currency: 'EUR', marketType: 'floating' },
+            ES: { name: 'إسبانيا', flag: '🇪🇸', region: 'أوروبا', currency: 'EUR', marketType: 'floating' },
+            RU: { name: 'روسيا', flag: '🇷🇺', region: 'أوروبا', currency: 'RUB', marketType: 'parallel' },
+            US: { name: 'أمريكا', flag: '🇺🇸', region: 'أمريكا', currency: 'USD', marketType: 'floating' },
+            CA: { name: 'كندا', flag: '🇨🇦', region: 'أمريكا', currency: 'CAD', marketType: 'floating' },
+            BR: { name: 'البرازيل', flag: '🇧🇷', region: 'أمريكا', currency: 'BRL', marketType: 'floating' },
+            AU: { name: 'أستراليا', flag: '🇦🇺', region: 'أوقيانوسيا', currency: 'AUD', marketType: 'floating' }
+        };
+
+        let allData = {};
+        let favorites = JSON.parse(localStorage.getItem('wx_fav') || '[]');
+        let currentFilter = 'all';
+
+        // ============================================
+        // جلب البيانات
+        // ============================================
+        async function fetchData() {
+            try {
+                console.log('🔄 جاري الاتصال بـ:', API_URL);
+                
+                const healthRes = await fetch(API_URL + '/health');
+                const healthData = await healthRes.json();
+                console.log('✅ متصل:', healthData.globalGoldOunce);
+
+                // تحديث الحالة
+                document.getElementById('statusDot').innerHTML = '🟢 متصل';
+                document.getElementById('statusDot').className = 'header-status status-online';
+
+                // الإحصائيات
+                document.getElementById('statGold').textContent = '$' + (healthData.globalGoldOunce || '-').toLocaleString();
+                document.getElementById('statSources').textContent = (healthData.sourcesActive || '?') + '/' + (healthData.totalSources || '?');
+                document.getElementById('statAccuracy').textContent = healthData.accuracy?.current || '-';
+
+                // السعر العالمي
+                document.getElementById('globalPrice').textContent = '$' + (healthData.globalGoldOunce || '-').toLocaleString();
+                document.getElementById('globalInfo').textContent = '🎯 دقة: ' + (healthData.accuracy?.current || '-') + ' | 📊 ' + (healthData.sourcesActive || '-') + '/' + (healthData.totalSources || '-') + ' مصدر';
+
+                // المعادن
+                document.getElementById('silverPrice').textContent = '$' + (healthData.globalSilverOunce || '-').toFixed(2);
+                document.getElementById('platinumPrice').textContent = '$' + (healthData.globalPlatinumOunce || '-').toFixed(2);
+                document.getElementById('palladiumPrice').textContent = '$' + (healthData.globalPalladiumOunce || '-').toFixed(2);
+
+                // كل الدول
+                const allRes = await fetch(API_URL + '/api/v1/all-gold');
+                const allDataRes = await allRes.json();
+                if (allDataRes.success) {
+                    allData = allDataRes.countries;
+                    renderCountries();
+                }
+
+            } catch (error) {
+                console.error('❌ خطأ:', error.message);
+                document.getElementById('statusDot').innerHTML = '🔴 غير متصل';
+                document.getElementById('statusDot').className = 'header-status status-offline';
+                document.getElementById('globalInfo').textContent = '❌ فشل الاتصال بالسيرفر - تأكد إن Termux شغال';
+            }
+        }
+
+        // ============================================
+        // عرض الدول
+        // ============================================
+        function renderCountries() {
+            const grid = document.getElementById('countriesGrid');
+            const noRes = document.getElementById('noResults');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            let countries = Object.entries(countryDefs);
+
+            // فلتر
+            if (currentFilter === 'favorites') {
+                countries = countries.filter(([c]) => favorites.includes(c));
+            } else if (currentFilter === 'parallel') {
+                countries = countries.filter(([_, i]) => i.marketType === 'parallel');
+            } else if (currentFilter !== 'all') {
+                countries = countries.filter(([_, i]) => i.region === currentFilter);
+            }
+
+            // بحث
+            if (search) {
+                countries = countries.filter(([code, info]) => {
+                    const d = allData[code] || {};
+                    return info.name.includes(search) || code.toLowerCase().includes(search) || info.currency.includes(search) || info.region.includes(search);
+                });
+            }
+
+            if (countries.length === 0) {
+                grid.innerHTML = '';
+                noRes.style.display = 'block';
+            } else {
+                noRes.style.display = 'none';
+                grid.innerHTML = countries.map(([code, info]) => {
+                    const d = allData[code] || {};
+                    const p = d.prices || {};
+                    const rate = d.effectiveRate || 0;
+                    const isFav = favorites.includes(code);
+                    return `
+                        <div class="country-card ${info.marketType}">
+                            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav('${code}')">${isFav ? '⭐' : '☆'}</button>
+                            <div class="country-header">
+                                <span class="country-flag">${info.flag}</span>
+                                <span class="country-name">${info.name}</span>
+                                <span class="country-rate">${rate.toLocaleString()} ${info.currency}</span>
+                            </div>
+                            <div class="country-prices">
+                                <div class="price-item">
+                                    <div class="price-karat">24K</div>
+                                    <div class="price-value">${p['24K']?.toLocaleString() || '-'}</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-karat">21K</div>
+                                    <div class="price-value">${p['21K']?.toLocaleString() || '-'}</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-karat">18K</div>
+                                    <div class="price-value">${p['18K']?.toLocaleString() || '-'}</div>
+                                </div>
+                            </div>
+                            <span class="market-badge badge-${info.marketType}">${info.marketType === 'parallel' ? '⚠️ موازي' : info.marketType === 'pegged' ? '🔒 مربوط' : info.marketType === 'managed' ? '📊 مدار' : '💹 حر'}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function setFilter(f, btn) {
+            currentFilter = f;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCountries();
+        }
+
+        function toggleFav(code) {
+            if (favorites.includes(code)) {
+                favorites = favorites.filter(f => f !== code);
+            } else {
+                favorites.push(code);
+            }
+            localStorage.setItem('wx_fav', JSON.stringify(favorites));
+            renderCountries();
+            showToast(favorites.includes(code) ? '⭐ تمت الإضافة' : 'تمت الإزالة');
+        }
+
+        function refreshAll() {
+            document.getElementById('globalInfo').textContent = '⏳ جاري التحديث...';
+            fetchData().then(() => showToast('✅ تم التحديث'));
+        }
+
+        // ============================================
+        // API Key
+        // ============================================
+        function openApiModal() { document.getElementById('apiModal').classList.add('show'); }
+        function closeApiModal() { document.getElementById('apiModal').classList.remove('show'); }
+
+        async function generateApiKey() {
+            const email = document.getElementById('apiEmail').value;
+            const name = document.getElementById('apiName').value;
+            if (!email) { showToast('❌ البريد مطلوب'); return; }
+
+            try {
+                const res = await fetch(API_URL + '/api/v1/keys/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, name: name || 'مستخدم' })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('wx_api_key', data.apiKey);
+                    document.getElementById('apiResult').innerHTML = `
+                        <p style="color:var(--green);">✅ تم الإنشاء!</p>
+                        <p style="word-break:break-all; font-size:11px; color:var(--gold);">${data.apiKey}</p>
+                        <p style="font-size:10px;">${data.tierName} | ${data.limits.rateLimit}</p>
+                    `;
+                    showToast('🎉 تم إنشاء API Key');
+                } else {
+                    showToast('❌ ' + (data.error || 'خطأ'));
+                }
+            } catch (e) {
+                showToast('❌ فشل الاتصال');
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        // إغلاق المودال
+        document.getElementById('apiModal').addEventListener('click', function(e) {
+            if (e.target === this) closeApiModal();
+        });
+
+        // ============================================
+        // بدء التشغيل
+        // ============================================
+        console.log('🚀 WX Gold Dashboard Started');
+        console.log('📡 Connecting to:', API_URL);
+        fetchData();
+        setInterval(fetchData, 10000);
+    </script>
+</body>
+</html>
