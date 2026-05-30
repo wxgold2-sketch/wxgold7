@@ -27,6 +27,8 @@ const zlib = require('zlib');
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+const cors = require('cors');
+app.use(cors());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
