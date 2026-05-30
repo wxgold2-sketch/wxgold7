@@ -39,7 +39,6 @@
             padding-bottom: 80px;
         }
 
-        /* شريط التحميل */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -65,7 +64,6 @@
             100% { width: 30%; }
         }
 
-        /* ========== القسم 1: الشريط العلوي (Header) ========== */
         .header {
             position: sticky;
             top: 0;
@@ -165,7 +163,6 @@
             cursor: not-allowed;
         }
 
-        /* ========== القسم 2: شريط الإحصائيات ========== */
         .stats-strip {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -199,7 +196,6 @@
             color: var(--text-secondary);
         }
 
-        /* ========== القسم 3: بطاقة السعر العالمي ========== */
         .global-price-card {
             margin: 10px 20px;
             background: var(--bg-card);
@@ -260,7 +256,6 @@
             margin: 0 8px;
         }
 
-        /* ========== القسم 4: المعادن الأخرى ========== */
         .metals-strip {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -284,7 +279,6 @@
         .metal-change.up { color: var(--green); }
         .metal-change.down { color: var(--red); }
 
-        /* ========== القسم 5: شريط البحث والتصفية ========== */
         .filter-strip {
             position: sticky;
             top: 72px;
@@ -364,7 +358,6 @@
             border-color: var(--blue);
         }
 
-        /* ========== القسم 6: شبكة الدول ========== */
         .countries-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -467,7 +460,6 @@
             color: var(--green);
         }
 
-        /* حالة عدم وجود بيانات */
         .no-data {
             text-align: center;
             padding: 40px;
@@ -491,7 +483,6 @@
             margin-top: 15px;
         }
 
-        /* ========== القسم 7: زرار المقارنة العائم ========== */
         .compare-fab {
             position: fixed;
             bottom: 25px;
@@ -525,7 +516,6 @@
             transform: translateX(50%) scale(1.05);
         }
 
-        /* ========== القسم 8: مودال API Key ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -627,7 +617,6 @@
             margin-top: 10px;
         }
 
-        /* ========== القسم 9: الفوتر ========== */
         .footer {
             text-align: center;
             padding: 20px;
@@ -642,7 +631,6 @@
             cursor: pointer;
         }
 
-        /* ========== مودال المقارنة ========== */
         .compare-modal-content {
             max-width: 650px;
             max-height: 70vh;
@@ -664,7 +652,6 @@
             color: var(--gold);
         }
 
-        /* ========== إشعارات Toast ========== */
         .toast {
             position: fixed;
             top: 20px;
@@ -690,7 +677,6 @@
             color: var(--red);
         }
 
-        /* Spinner للتحميل */
         .spinner {
             display: inline-block;
             width: 20px;
@@ -704,7 +690,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ========== Responsive ========== */
         @media (max-width: 768px) {
             .countries-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -756,10 +741,8 @@
 </head>
 <body>
 
-    <!-- شريط التحميل -->
     <div class="progress-bar" id="progressBar"></div>
 
-    <!-- ========== القسم 1: Header ========== -->
     <header class="header">
         <div class="header-left">
             <span class="header-icon">🏆</span>
@@ -777,7 +760,6 @@
         </div>
     </header>
 
-    <!-- ========== القسم 2: شريط الإحصائيات ========== -->
     <div class="stats-strip">
         <div class="stat-card">
             <span class="stat-icon">💰</span>
@@ -801,7 +783,6 @@
         </div>
     </div>
 
-    <!-- ========== القسم 3: بطاقة السعر العالمي ========== -->
     <div class="global-price-card">
         <div class="global-icon">🪙</div>
         <div class="global-label">سعر الذهب العالمي (XAU/USD)</div>
@@ -814,7 +795,6 @@
         <div class="global-meta" id="last-update">آخر تحديث: --</div>
     </div>
 
-    <!-- ========== القسم 4: المعادن الأخرى ========== -->
     <div class="metals-strip">
         <div class="metal-card silver">
             <div class="metal-icon">🥈</div>
@@ -836,7 +816,6 @@
         </div>
     </div>
 
-    <!-- ========== القسم 5: شريط البحث والتصفية ========== -->
     <div class="filter-strip">
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
@@ -859,7 +838,6 @@
         </div>
     </div>
 
-    <!-- ========== القسم 6: شبكة الدول ========== -->
     <div class="countries-grid" id="countries-grid">
         <div class="no-data">
             <span class="error-icon">⏳</span>
@@ -867,10 +845,8 @@
         </div>
     </div>
 
-    <!-- ========== القسم 7: زرار المقارنة العائم ========== -->
     <button class="compare-fab" id="compareFab" onclick="openCompareModal()">⚖️ مقارنة (<span id="compareCount">0</span>)</button>
 
-    <!-- ========== القسم 8: مودال API Key ========== -->
     <div class="modal-overlay" id="apiModal">
         <div class="modal">
             <h3>🔑 إنشاء API Key مجاني</h3>
@@ -887,7 +863,6 @@
         </div>
     </div>
 
-    <!-- مودال المقارنة -->
     <div class="modal-overlay" id="compareModal">
         <div class="modal compare-modal-content">
             <h3>⚖️ مقارنة أسعار الذهب</h3>
@@ -896,7 +871,6 @@
         </div>
     </div>
 
-    <!-- ========== القسم 9: الفوتر ========== -->
     <footer class="footer">
         <p>🏆 WX Gold API v7.0 | 35+ مصدر | 43 دولة | دقة 99.99% | مجاني للأبد</p>
         <p>جميع الحقوق محفوظة © 2026</p>
@@ -906,6 +880,8 @@
     <script>
         // ========== الإعدادات ==========
         const API_URL = 'https://web-production-b1de4.up.railway.app';
+        const API_KEY = localStorage.getItem('wx_api_key') || '';
+
         let allCountries = [];
         let globalData = null;
         let metalsData = null;
@@ -980,12 +956,16 @@
         // ========== دالة جلب البيانات من API الحقيقي ==========
         async function fetchFromAPI(endpoint) {
             try {
+                const headers = {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                };
+                if (API_KEY) {
+                    headers['x-api-key'] = API_KEY;
+                }
                 const response = await fetch(`${API_URL}${endpoint}`, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    signal: AbortSignal.timeout(15000) // 15 ثانية timeout
+                    headers: headers,
+                    signal: AbortSignal.timeout(15000)
                 });
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -1006,7 +986,6 @@
             setProgress(true);
 
             try {
-                // جلب كل البيانات بالتوازي
                 const [allRes, globalRes, metalsRes, statsRes] = await Promise.allSettled([
                     fetchFromAPI('/api/v1/gold/all'),
                     fetchFromAPI('/api/v1/gold/global'),
@@ -1014,7 +993,6 @@
                     fetchFromAPI('/api/v1/stats')
                 ]);
 
-                // معالجة بيانات الدول
                 if (allRes.status === 'fulfilled' && allRes.value && allRes.value.data) {
                     allCountries = Array.isArray(allRes.value.data) ? allRes.value.data : [];
                     console.log(`✅ تم جلب ${allCountries.length} دولة`);
@@ -1022,7 +1000,6 @@
                     console.warn('⚠️ فشل جلب بيانات الدول');
                 }
 
-                // معالجة السعر العالمي
                 if (globalRes.status === 'fulfilled' && globalRes.value) {
                     globalData = globalRes.value.data || globalRes.value;
                     console.log('✅ تم جلب السعر العالمي');
@@ -1030,7 +1007,6 @@
                     console.warn('⚠️ فشل جلب السعر العالمي');
                 }
 
-                // معالجة المعادن
                 if (metalsRes.status === 'fulfilled' && metalsRes.value) {
                     metalsData = metalsRes.value.data || metalsRes.value;
                     console.log('✅ تم جلب المعادن');
@@ -1038,7 +1014,6 @@
                     console.warn('⚠️ فشل جلب المعادن');
                 }
 
-                // معالجة الإحصائيات
                 if (statsRes.status === 'fulfilled' && statsRes.value) {
                     statsData = statsRes.value.data || statsRes.value;
                     console.log('✅ تم جلب الإحصائيات');
@@ -1118,21 +1093,18 @@
             const xpdChange = document.getElementById('xpd-change');
 
             if (metalsData) {
-                // الفضة
                 const silver = metalsData.silver || metalsData.XAG || {};
                 xagPrice.textContent = `$${formatPrice(silver.price)}`;
                 if (silver.change !== undefined) {
                     xagChange.textContent = `${silver.change >= 0 ? '▲' : '▼'} ${Math.abs(silver.change).toFixed(2)}%`;
                     xagChange.className = `metal-change ${silver.change >= 0 ? 'up' : 'down'}`;
                 }
-                // البلاتين
                 const platinum = metalsData.platinum || metalsData.XPT || {};
                 xptPrice.textContent = `$${formatPrice(platinum.price)}`;
                 if (platinum.change !== undefined) {
                     xptChange.textContent = `${platinum.change >= 0 ? '▲' : '▼'} ${Math.abs(platinum.change).toFixed(2)}%`;
                     xptChange.className = `metal-change ${platinum.change >= 0 ? 'up' : 'down'}`;
                 }
-                // البلاديوم
                 const palladium = metalsData.palladium || metalsData.XPD || {};
                 xpdPrice.textContent = `$${formatPrice(palladium.price)}`;
                 if (palladium.change !== undefined) {
@@ -1241,7 +1213,6 @@
                 _flag: c.flag || getFlag(c.code || c.id)
             }));
 
-            // تطبيق الفلتر
             if (currentFilter === 'favorites') {
                 data = data.filter(c => favorites.includes(c._code));
             } else if (currentFilter === 'parallel') {
@@ -1250,7 +1221,6 @@
                 data = data.filter(c => c._region === currentFilter);
             }
 
-            // تطبيق البحث
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if (searchTerm) {
                 data = data.filter(c =>
@@ -1260,7 +1230,6 @@
                 );
             }
 
-            // تطبيق الترتيب
             if (currentSort === 'price-desc') {
                 data.sort((a, b) => (b._karat24 || 0) - (a._karat24 || 0));
             } else if (currentSort === 'price-asc') {
@@ -1475,6 +1444,7 @@
                     document.getElementById('generatedKey').textContent = data.apiKey;
                     document.getElementById('apiKeyResult').classList.add('show');
                     document.getElementById('apiKeyError').classList.remove('show');
+                    localStorage.setItem('wx_api_key', data.apiKey);
                     showToast('🎉 تم إنشاء المفتاح بنجاح!');
                 } else {
                     document.getElementById('apiKeyError').textContent = data.message || '❌ فشل إنشاء المفتاح';
@@ -1520,9 +1490,10 @@
             }
         }, 10000);
 
-        // ========== بدء التشغيل - جلب البيانات الفعلي ==========
+        // ========== بدء التشغيل ==========
         console.log('🏆 WX Gold API Dashboard v7.0');
         console.log(`📡 الاتصال بـ: ${API_URL}`);
+        console.log(`🔑 API Key: ${API_KEY ? 'موجود' : 'غير موجود'}`);
         fetchAllData();
     </script>
 </body>
