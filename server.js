@@ -1734,7 +1734,7 @@ setInterval(() => {
 // ================================================================
 // ⏰ SCHEDULED TASKS
 // ================================================================
-cron.schedule('*/1 * * * *', () => {
+cron.schedule('*/5 * * * *', () => {
   fetchLivePrices().catch(e => console.error('Fetch error:', e.message));
 });
 
