@@ -1742,7 +1742,7 @@ setInterval(() => {
 // ================================================================
 // ⏰ SCHEDULED TASKS
 // ================================================================
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('*/30 * * * * *', () => {
   fetchLivePrices().catch(e => console.error('Fetch error:', e.message));
 });
 
