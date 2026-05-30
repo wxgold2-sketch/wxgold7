@@ -28,6 +28,12 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
+
 // ⚙️ Configuration
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = 'wx-admin-2024-secret';
